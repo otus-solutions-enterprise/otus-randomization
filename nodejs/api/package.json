@@ -1,0 +1,22 @@
+{
+  "name": "rocketseat",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js",
+    "db": "docker pull mongo && docker run --name mongodb -p 27017:27017 -d mongo"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4",
+    "mongoose": "^5.3.8",
+    "require-dir": "^1.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.5"
+  }
+}
