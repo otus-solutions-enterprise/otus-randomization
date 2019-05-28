@@ -12,9 +12,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.15.2",
     "express": "^4.16.4",
     "mongoose": "^5.3.8",
-    "require-dir": "^1.1.0"
+    "require-dir": "^1.1.0",
+    "mongodb": "^2.2.10"
   },
   "devDependencies": {
     "nodemon": "^1.18.5"

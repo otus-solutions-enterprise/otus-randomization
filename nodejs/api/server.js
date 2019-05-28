@@ -26,7 +26,8 @@ const url = `mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOSTNAME}:${M
 //conexao com o DB
 mongoose.connect(url, options);
 
-requireDir('./src/models');
+requireDir('src/models');
+requireDir('src/services');
 
 
 app.use('/api', require("./src/routes"));
