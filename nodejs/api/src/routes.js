@@ -1,9 +1,9 @@
 const express = require('express');
 const routes = express.Router();
 
-const ProductController = require('./controllers/ProductController');
+const RandomizationController = require('./controllers/RandomizationController');
 
 //ROUTE
-routes.post('/create-table', ProductController.createTable);
+routes.post('/create-table', RandomizationController.createTable);
 
 module.exports = routes;

@@ -19,11 +19,21 @@ module.exports = {
         let randomDocs = [];
         for (let i=0;i<dados.participants;i++){
             randomDocs.push({
+                recruitmentNumber:null,
                 group:null,
                 position:null
             })
         }
 
-        return RandomizationDAO.createTable(randomDocs)
+        RandomizationDAO.createTable(randomDocs);
+
+        let forLength = (dados.participants/dados.blocSize);
+        for(let i=0;i<forLength;i++){
+           let randomDocuments = RandomizationDAO.fetchBloc(dados.blocSize);
+            for (let group in dados.groups) {
+                
+            }
+        }
+
     }
 };

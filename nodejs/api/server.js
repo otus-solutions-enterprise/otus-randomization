@@ -21,7 +21,7 @@ const options = {
     connectTimeoutMS: 10000,
 };
 
-const url = `mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOSTNAME}:${MONGO_PORT}/${MONGO_DB}?authSource=admin`;
+const url = `mongodb://writer:password@localhost:27017/randomization?authSource=admin`;
 
 //conexao com o DB
 mongoose.connect(url, options);
