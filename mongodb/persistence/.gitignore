@@ -1,3 +1,4 @@
 mongoData/
-otus-db-build.js
+initdb.js
+mongo.conf
 *.conf

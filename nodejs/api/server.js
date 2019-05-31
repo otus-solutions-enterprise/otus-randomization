@@ -11,7 +11,7 @@ const {
     MONGO_PASSWORD,
     MONGO_HOSTNAME,
     MONGO_PORT,
-    MONGO_DB
+    MONGO_DATABASE
 } = process.env;
 
 const options = {
@@ -21,7 +21,7 @@ const options = {
     connectTimeoutMS: 10000,
 };
 
-const url = `mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOSTNAME}:${MONGO_PORT}/${MONGO_DB}?authSource=admin`;
+const url = `mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOSTNAME}:${MONGO_PORT}/${MONGO_DATABASE}?authSource=${MONGO_USERNAME}`;
 
 //conexao com o DB
 mongoose.connect(url, options);
@@ -31,4 +31,4 @@ requireDir('./app/models');
 
 app.use('/api', require("./app/routes"));
 
-app.listen(3001);
+app.listen(8080);

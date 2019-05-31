@@ -4,5 +4,5 @@ WORKDIR /src
 RUN npm i -g typescript
 RUN npm i
 
-EXPOSE 3001
+EXPOSE 8080
 CMD npm run dev
