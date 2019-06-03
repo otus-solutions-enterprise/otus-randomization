@@ -34,16 +34,32 @@ module.exports = {
             let randomDocuments = await RandomizationModel.fetchBloc(dados.blocSize);
             console.log(randomDocuments);
             dados.groups.forEach(group=>{
-                randomDocuments = ranmdomizeBloc(group,randomDocuments);
+                randomDocuments = randomizeBloc(group,randomDocuments);
             });
             groups.push(randomDocuments)
         }
 
-        return res.json(groups);
+        let randomizedGroups = [];
+        let groupsForSize = groups.length;
+        for(let j=0;j<groupsForSize;j++){
+            let chosenPosition = getRandomInt(0,groups.length);
+            randomizedGroups.push(groups[chosenPosition]);
+            groups.splice(chosenPosition, 1);
+        }
+
+        let positionCount = 1;
+        randomizedGroups.forEach(randomizedGroup => {
+            randomizedGroup.forEach(randomizedElement => {
+                randomizedElement.position = positionCount;
+                positionCount++;
+            })
+        });
+
+        return res.json(randomizedGroups);
     }
 };
 
-function ranmdomizeBloc(group,randomDocuments,needToRandomize){
+function randomizeBloc(group,randomDocuments,needToRandomize){
     needToRandomize = needToRandomize ? needToRandomize : group.size;
     let forSize = needToRandomize;
     for(let i=0;i < forSize;i++){
@@ -52,7 +68,7 @@ function ranmdomizeBloc(group,randomDocuments,needToRandomize){
             randomDocuments[chosenPosition].group = group.name;
             needToRandomize--;
         } else {
-            ranmdomizeBloc(group,randomDocuments,needToRandomize)
+            return randomizeBloc(group,randomDocuments,needToRandomize)
         }
     }
     return randomDocuments;
