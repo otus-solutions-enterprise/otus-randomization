@@ -43,7 +43,7 @@ module.exports = function (application){
                 for (let i=0;i<blocSize;i++){
                     randomDocuments.push({
                         tableId: tableId,
-                        recruitmentNumber:null,
+                        elementOid:null,
                         group:null,
                         position:null
                     })
@@ -67,7 +67,7 @@ module.exports = function (application){
             randomizedGroups.forEach(randomizedGroup => {
                 randomizedGroup.forEach(randomizedElement => {
                     randomizedElement.position = positionCount;
-                    randomDocs.push(randomizedElement);
+                    randomDocs.push(new RandomizationTableElementModel(randomizedElement));
                     positionCount++;
                 })
             });

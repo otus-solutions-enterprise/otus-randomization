@@ -3,6 +3,10 @@ const Schema = mongoose.Schema;
 const ObjectId = Schema.Types.ObjectId;
 
 const randomizationSchema = new Schema({
+    objectType: {
+        type: String,
+        default: "RandomizationTableElement"
+    },
     tableId: {
         type: ObjectId,
         required: true
@@ -16,7 +20,7 @@ const randomizationSchema = new Schema({
         required: true
     },
     position: {
-        type: Date,
+        type: Number,
         default: Date.now,
     },
 });
