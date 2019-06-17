@@ -1,6 +1,6 @@
 FROM nginx:1.15.5
 COPY ./config /etc/nginx/
-COPY ./app /usr/share/nginx/html/
+COPY html /usr/share/nginx/html/
 
 EXPOSE 80
 EXPOSE 443

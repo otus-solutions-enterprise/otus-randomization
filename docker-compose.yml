@@ -1,37 +1,33 @@
 version: '3'
-networks:
-  frontend-network:
-  backend-network:
 services:
-  otus-randomization-database:
-    build:
-      context: mongodb/
-      dockerfile: Dockerfile
-    container_name: otus-randomization-database
-    hostname: otus-randomization-database
+  otus-randomization-db:
+    image: bitnami/mongodb:4.0
+    container_name: otus-randomization-db
+    hostname: otus-randomization-db
     restart: always
-#    volumes:
-#      - ./mongodb/persistence/mongoData/:/data/db/
     ports:
       - 27017:27017
-    networks:
-      - backend-network
+    volumes:
+      - ./mongodb/persistence/mongoData:/bitnami/mongodb/data/db
+    environment:
+      - MONGODB_ROOT_PASSWORD=XRYs9yjU
   otus-randomization-api:
     build:
       context: nodejs/api
       dockerfile: Dockerfile
+#    image: node:8-alpine
     container_name: otus-randomization-api
     restart: always
     depends_on:
-      - otus-randomization-database
+      - otus-randomization-db
     links:
-      - otus-randomization-database
+      - otus-randomization-db
     ports:
-      - 8080:8080
-    env_file: .env
-    networks:
-      - frontend-network
-      - backend-network
+      - 8080:3005
+    env_file:
+      - ./nodejs/.env
+    volumes:
+      - ./nodejs/persistence:/src
   otus-randomization:
     container_name: otus-randomization
     build:
@@ -45,11 +41,6 @@ services:
     ports:
       - 80:80
       - 443:443
-    networks:
-      - frontend-network
     volumes:
+      - ./nginx/persistence/config:/etc/nginx/
       - ./nginx/persistence/html:/usr/share/nginx/html/
-
-
-
-
