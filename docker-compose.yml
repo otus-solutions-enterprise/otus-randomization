@@ -2,20 +2,16 @@ version: '3'
 networks:
   otus-randomization-network:
 services:
-  db:
-    image: mongo:4.0
-    container_name: db
+  otus-randomization-database:
+    build:
+      context: mongodb
+      dockerfile: Dockerfile
+    container_name: otus-randomization-database
     restart: always
     volumes:
       - ./mongodb/persistence/mongoData/:/data/db/
-      - ./mongodb/config/mongo.conf:/etc/mongo.conf
-      - ./mongodb/config/initdb.js:/docker-entrypoint-initdb.d/initdb.js
     ports:
       - 27017:27017
-    command:
-      - '--auth'
-      - '-f'
-      - '/etc/mongo.conf'
     networks:
       - otus-randomization-network
   otus-randomization:
@@ -25,9 +21,9 @@ services:
     container_name: otus-randomization
     restart: always
     depends_on:
-      - db
+      - otus-randomization-database
     links:
-      - db
+      - otus-randomization-database
     ports:
       - 80:3001
     env_file: .env
