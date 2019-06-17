@@ -16,13 +16,12 @@ const options = {
     connectTimeoutMS: 10000,
     keepAlive: 1,
     auth: {
-        user: "otus",
-        password: "teste123"
+        user: MONGO_USERNAME,
+        password: MONGO_PASSWORD
     }
 };
 
-const url = `mongodb://localhost:27017/otus-randomization?authSource=otus-randomization`;
-// const url = `mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOSTNAME}:${MONGO_PORT}/${MONGO_DB}?authSource=admin`;
+const url = `mongodb://${MONGO_HOSTNAME}:${MONGO_PORT}/${MONGO_DB}?authSource=admin`;
 
 const port = 3005;
 

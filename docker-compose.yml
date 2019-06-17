@@ -25,7 +25,7 @@ services:
     links:
       - otus-randomization-database
     ports:
-      - 80:3001
+      - 80:3005
     env_file: .env
     environment:
       - MONGO_USERNAME=$MONGO_USERNAME
