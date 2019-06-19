@@ -43,15 +43,20 @@ module.exports = function (application){
                 for (let i=0;i<blocSize;i++){
                     randomDocuments.push({
                         tableId: tableId,
+                        objectType: "RandomizationTableElement",
                         elementOid:null,
                         group:null,
                         position:null
                     })
                 }
+                let groupRandomization = {
+                    needToRandomize: Array.from(Array(randomDocuments.length).keys()),
+                    randomDocuments: randomDocuments
+                };
                 randomizationTableGroups.forEach(group=>{
-                    randomDocuments = randomizeBloc(group,randomDocuments);
+                    groupRandomization = randomizeBloc(group,groupRandomization);
                 });
-                groups.push(randomDocuments);
+                groups.push(groupRandomization.randomDocuments);
             }
             let randomDocs = [];
 
@@ -67,7 +72,7 @@ module.exports = function (application){
             randomizedGroups.forEach(randomizedGroup => {
                 randomizedGroup.forEach(randomizedElement => {
                     randomizedElement.position = positionCount;
-                    randomDocs.push(new RandomizationTableElementModel(randomizedElement));
+                    randomDocs.push(randomizedElement);
                     positionCount++;
                 })
             });
@@ -79,19 +84,15 @@ module.exports = function (application){
             })
         }
     };
-    function randomizeBloc(group,randomDocuments,needToRandomize){
-        needToRandomize = needToRandomize ? needToRandomize : group.size;
-        let forSize = needToRandomize;
-        for(let i=0;i < forSize;i++){
-            let chosenPosition = Math.getRandomInt(0,randomDocuments.length);
-            if (randomDocuments[chosenPosition].group === null){
-                randomDocuments[chosenPosition].group = group.name;
-                needToRandomize--;
-            } else {
-                return randomizeBloc(group,randomDocuments,needToRandomize)
-            }
+
+    function randomizeBloc(group,groupRandomization){
+        let groupSize = group.size;
+        for(let i=0;i < groupSize;i++){
+            let chosenPosition = groupRandomization.needToRandomize[Math.getRandomInt(0,groupRandomization.needToRandomize.length)];
+            groupRandomization.randomDocuments[chosenPosition].group = group.name;
+            groupRandomization.needToRandomize.splice(groupRandomization.needToRandomize.indexOf(chosenPosition),1);
         }
-        return randomDocuments;
+        return groupRandomization;
     }
 };
 
