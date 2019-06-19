@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c1c28a15-44fe-477b-841d-5a1c4d39dd16" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nodejs/api/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/nodejs/api/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nodejs/api/app/services/RandomizationService.js" beforeDir="false" afterPath="$PROJECT_DIR$/nodejs/api/app/services/RandomizationService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nodejs/api/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/nodejs/api/package.json" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -30,8 +27,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/nodejs/api/app/services/RandomizationService.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="430">
-              <caret line="91" column="81" selection-start-line="91" selection-start-column="81" selection-end-line="91" selection-end-column="81" />
+            <state relative-caret-position="405">
+              <caret line="45" column="34" selection-start-line="45" selection-start-column="34" selection-end-line="45" selection-end-column="34" />
             </state>
           </provider>
         </entry>
@@ -285,12 +282,12 @@
       <workItem from="1558981588618" duration="616000" />
       <workItem from="1558986353337" duration="4232000" />
       <workItem from="1560962459232" duration="6387000" />
-      <workItem from="1560975441201" duration="3989000" />
+      <workItem from="1560975441201" duration="4187000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="30781000" />
+    <option name="totallyTimeSpent" value="30979000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -303,6 +300,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1080" y="838" width="1920" height="1035" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18344755" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -315,9 +313,9 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" weight="0.3289183" />
-      <window_info active="true" anchor="bottom" id="Version Control" order="8" sideWeight="0.49973643" visible="true" weight="0.42935982" />
-      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49973643" weight="0.32781458" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5002636" side_tool="true" visible="true" weight="0.42935982" />
+      <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.49973643" weight="0.42935982" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="9" sideWeight="0.49920928" visible="true" weight="0.32781458" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5007907" side_tool="true" visible="true" weight="0.32781458" />
       <window_info anchor="bottom" id="TypeScript" order="11" />
       <window_info anchor="bottom" id="Messages" order="12" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -739,8 +737,8 @@ arr</expression-string>
     </entry>
     <entry file="file://$PROJECT_DIR$/nodejs/api/app/services/RandomizationService.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="430">
-          <caret line="91" column="81" selection-start-line="91" selection-start-column="81" selection-end-line="91" selection-end-column="81" />
+        <state relative-caret-position="405">
+          <caret line="45" column="34" selection-start-line="45" selection-start-column="34" selection-end-line="45" selection-end-column="34" />
         </state>
       </provider>
     </entry>

@@ -43,7 +43,7 @@ module.exports = function (application){
                 for (let i=0;i<blocSize;i++){
                     randomDocuments.push({
                         tableId: tableId,
-                        default: "RandomizationTableElement",
+                        objectType: "RandomizationTableElement",
                         elementOid:null,
                         group:null,
                         position:null
