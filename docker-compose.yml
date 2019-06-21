@@ -1,4 +1,6 @@
 version: '3'
+networks:
+  otus-randomization-net
 services:
   otus-randomization-db:
     image: bitnami/mongodb:4.0
@@ -16,11 +18,12 @@ services:
       - ./mongodb/persistence/mongoData:/bitnami/mongodb/data/db
     environment:
       - MONGODB_ROOT_PASSWORD=XRYs9yjU
+    networks:
+      - otus-randomization-net
   otus-randomization-api:
-#    build:
-#      context: nodejs/api
-#      dockerfile: Dockerfile
-    image: node:8-alpine
+    build:
+      context: nodejs/api
+      dockerfile: Dockerfile
     container_name: otus-randomization-api
     restart: always
     depends_on:
@@ -33,6 +36,8 @@ services:
       - ./nodejs/.env
     volumes:
       - ./nodejs/persistence:/src
+    networks:
+      - otus-randomization-net
   otus-randomization:
     container_name: otus-randomization
     build:
@@ -46,3 +51,5 @@ services:
     ports:
       - 80:80
       - 443:443
+    networks:
+      - otus-randomization-net
