@@ -5,6 +5,11 @@ services:
     container_name: otus-randomization-db
     hostname: otus-randomization-db
     restart: always
+    healthcheck:
+      test: echo 'db.stats().ok' | mongo localhost:27017/admin --quiet
+      interval: 30s
+      timeout: 30s
+      retries: 5
     ports:
       - 27017:27017
     volumes:
@@ -12,10 +17,10 @@ services:
     environment:
       - MONGODB_ROOT_PASSWORD=XRYs9yjU
   otus-randomization-api:
-    build:
-      context: nodejs/api
-      dockerfile: Dockerfile
-#    image: node:8-alpine
+#    build:
+#      context: nodejs/api
+#      dockerfile: Dockerfile
+    image: node:8-alpine
     container_name: otus-randomization-api
     restart: always
     depends_on:
@@ -23,7 +28,7 @@ services:
     links:
       - otus-randomization-db
     ports:
-      - 8080:3005
+      - 8080:8080
     env_file:
       - ./nodejs/.env
     volumes:
@@ -41,6 +46,3 @@ services:
     ports:
       - 80:80
       - 443:443
-    volumes:
-      - ./nginx/persistence/config:/etc/nginx/
-      - ./nginx/persistence/html:/usr/share/nginx/html/

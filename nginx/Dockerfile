@@ -1,4 +1,4 @@
-FROM nginx:1.15.5
+FROM nginx:1.15.5-alpine
 COPY ./config /etc/nginx/
 COPY html /usr/share/nginx/html/
 
