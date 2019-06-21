@@ -11,11 +11,11 @@ services:
     restart: always
     ports:
       - 27017:27017
-   volumes:
-     - ./mongodb/persistence/mongoData:/data/db
-   environment:
-     - MONGO_INITDB_ROOT_USERNAME=root
-     - MONGO_INITDB_ROOT_PASSWORD=XRYs9yjU
+    volumes:
+      - ./mongodb/persistence/mongoData:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=XRYs9yjU
     networks:
       - otus-randomization-net
   otus-randomization-api:

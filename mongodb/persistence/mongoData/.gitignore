@@ -1,4 +1,2 @@
-mongoData/
-initdb.js
-mongo.conf
-*.conf
+!.gitignore
+*
