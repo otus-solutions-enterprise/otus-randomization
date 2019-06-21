@@ -1,9 +1,4 @@
-FROM bitnami/mongodb:4.0
-
-ENV MONGODB_REPLICA_SET_MODE secondary
-ENV MONGODB_PRIMARY_ROOT_PASSWORD XRYs9yjU
-ENV MONGODB_PRIMARY_HOST otus-randomization-db
-ENV MONGODB_ADVERTISED_HOSTNAME otus-randomization-db2
-ENV MONGODB_REPLICA_SET_KEY ccf7ac9a6f208f87608d5fcce620749e0515cb97
-
+FROM mongo:4.0
+COPY ./config/mongo.conf /etc/mongo.conf
 EXPOSE 27017
+CMD ["mongod","--auth","-f", "/etc/mongo.conf"]
