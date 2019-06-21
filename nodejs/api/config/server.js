@@ -1,7 +1,7 @@
-var express = require('express');
-var consign = require('consign');
+const express = require('express');
+const consign = require('consign');
 
-var app = express();
+const app = express();
 
 consign()
   .include('app/routes')

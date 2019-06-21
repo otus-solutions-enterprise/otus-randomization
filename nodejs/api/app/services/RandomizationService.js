@@ -1,6 +1,7 @@
-const RandomizationTableModel = require('mongoose').model('randomization-table');
-const RandomizationTableElementModel = require('mongoose').model('randomization-table-element');
-
+const mongoose =require('mongoose');
+const RandomizationTableModel = mongoose.model('randomization-table');
+const RandomizationTableElementModel = mongoose.model('randomization-table-element');
+const ObjectId = mongoose.Types.ObjectId;
 module.exports = function (application){
     const Errors = application.app.services.Errors;
     const Math = application.app.services.Math;
@@ -80,6 +81,13 @@ module.exports = function (application){
             return await RandomizationTableElementModel.createTableElements(randomDocs).then(()=>{
                 return tableId.toString();
             }).catch(()=>{
+                throw Errors.internalServerError({message:"Please contact support"})
+            })
+        },
+        async randomizeElement(elementId, tableId){
+            return await RandomizationTableElementModel.findNotRandomized({"tableId" : ObjectId("5d0d1076c84348ba0aaba753"),"elementOid" : null}).then(saveResult=>{
+                let tableId = saveResult._doc._id;
+            }).catch((err)=>{
                 throw Errors.internalServerError({message:"Please contact support"})
             })
         }

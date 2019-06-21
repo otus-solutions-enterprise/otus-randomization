@@ -6,7 +6,8 @@ const {
     MONGO_PASSWORD,
     MONGO_HOSTNAME,
     MONGO_PORT,
-    MONGO_DB
+    MONGO_DB,
+    API_PORT
 } = process.env;
 
 const options = {
@@ -16,12 +17,13 @@ const options = {
     connectTimeoutMS: 10000,
     keepAlive: 1,
     auth: {
-        user: MONGO_USERNAME,
-        password: MONGO_PASSWORD
+        user: "admin",
+        password: "secret"
     }
 };
 
-const url = `mongodb://${MONGO_HOSTNAME}:${MONGO_PORT}/${MONGO_DB}?authSource=admin`;
+const url = `mongodb://localhost:27017/otus-randomization?authSource=admin`;
+// const url = `mongodb://${MONGO_HOSTNAME}:${MONGO_PORT}/${MONGO_DB}?authSource=admin`;
 
 const port = 3005;
 

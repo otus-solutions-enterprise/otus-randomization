@@ -1,5 +1,5 @@
-var bodyParser = require('body-parser');
-var jsonParser = bodyParser.json();
+const bodyParser = require('body-parser');
+const jsonParser = bodyParser.json();
 
 module.exports = function(application) {
     application.post('/api/create-table',jsonParser, function(req, res) {
@@ -20,5 +20,23 @@ module.exports = function(application) {
         .catch(err =>{
             res.status(err.code).send(err.body)
         });
+    });
+
+    application.get('/api/randomize',jsonParser, function(req, res) {
+        res.header('Content-Type', 'application/json');
+        let elementId = req.body.elementId;
+        let tableId = req.body.tableId;
+
+        if(!elementId || !tableId){
+            res.status(406).send({data:"Invalid Fields"})
+        }
+
+        application.app.controllers.RandomizationController.randomizeElement(elementId, tableId)
+            .then(result=>{
+                res.status(200).send(result)
+            })
+            .catch(err =>{
+                res.status(err.code).send(err.body)
+            });
     });
 };
