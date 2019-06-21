@@ -1,17 +1,12 @@
 version: '3'
 networks:
-  otus-randomization-net
+  otus-randomization-net:
 services:
   otus-randomization-db:
     image: bitnami/mongodb:4.0
     container_name: otus-randomization-db
     hostname: otus-randomization-db
     restart: always
-    healthcheck:
-      test: echo 'db.stats().ok' | mongo localhost:27017/admin --quiet
-      interval: 30s
-      timeout: 30s
-      retries: 5
     ports:
       - 27017:27017
     volumes:
@@ -31,7 +26,7 @@ services:
     links:
       - otus-randomization-db
     ports:
-      - 8080:8080
+      - 8080:3005
     env_file:
       - ./nodejs/.env
     volumes:
