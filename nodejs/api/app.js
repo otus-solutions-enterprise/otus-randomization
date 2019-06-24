@@ -1,5 +1,6 @@
 var app = require("./config/server");
 const mongoose = require("mongoose");
+const listEndpoints = require('express-list-endpoints')
 
 const {
     MONGO_USERNAME,
@@ -25,6 +26,7 @@ const options = {
 const url = `mongodb://${MONGO_HOSTNAME}:${MONGO_PORT}/${MONGO_DB}?authSource=admin`;
 
 connect();
+list();
 
 function listen() {
     app.listen(API_PORT);
@@ -38,3 +40,11 @@ function connect() {
         .once('open', listen);
     return mongoose.connect(url, options);
 }
+
+
+function list(){
+    let endpoints = listEndpoints(app);
+    console.info('    ***Endpoints***   ');
+    console.table(endpoints)
+}
+
