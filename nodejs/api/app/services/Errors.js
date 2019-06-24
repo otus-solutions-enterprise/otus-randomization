@@ -11,3 +11,10 @@ module.exports.internalServerError = function(body){
     err.body = body;
     return err;
 };
+
+module.exports.notFound = function(body){
+    let err = {};
+    err.code = 404;
+    err.body = body;
+    return err;
+};

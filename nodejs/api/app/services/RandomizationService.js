@@ -1,5 +1,6 @@
-const RandomizationTableModel = require('mongoose').model('randomization-table');
-const RandomizationTableElementModel = require('mongoose').model('randomization-table-element');
+const mongoose =require('mongoose');
+const RandomizationTableModel = mongoose.model('randomization-table');
+const RandomizationTableElementModel = mongoose.model('randomization-table-element');
 
 module.exports = function (application){
     const Errors = application.app.services.Errors;
@@ -27,7 +28,7 @@ module.exports = function (application){
         },
         async createTable(projectName, participants, blocSize, randomizationTableGroups){
             await this.validateTableParameters(participants, blocSize, randomizationTableGroups);
-            let RandomizationTable = new RandomizationTableModel({name:projectName});
+            let RandomizationTable = new RandomizationTableModel({name:projectName,participants:participants, blocSize:blocSize, groups:randomizationTableGroups});
             return await RandomizationTable.save().then(saveResult=>{
                 let tableId = saveResult._doc._id;
                 return this.createTableElements(tableId,participants, blocSize, randomizationTableGroups);
@@ -80,6 +81,18 @@ module.exports = function (application){
             return await RandomizationTableElementModel.createTableElements(randomDocs).then(()=>{
                 return tableId.toString();
             }).catch(()=>{
+                throw Errors.internalServerError({message:"Please contact support"})
+            })
+        },
+        async randomizeElement(elementId, tableId){
+            return await RandomizationTableElementModel.findNotRandomized(tableId).then(result => {
+                if(result){
+                    result.set("elementOid",elementId);
+                    result.save();
+                    return {Identification:result.elementOid,Group:result.group}
+                }
+                throw Errors.notFound({message:"Table not found"})
+            }).catch(err => {
                 throw Errors.internalServerError({message:"Please contact support"})
             })
         }

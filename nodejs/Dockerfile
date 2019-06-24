@@ -1,5 +1,5 @@
 FROM node:10.16.0-alpine
-COPY . src/
+COPY api/. src/
 WORKDIR /src
 
 EXPOSE 8080

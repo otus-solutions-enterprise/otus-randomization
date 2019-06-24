@@ -6,7 +6,8 @@ const {
     MONGO_PASSWORD,
     MONGO_HOSTNAME,
     MONGO_PORT,
-    MONGO_DB
+    MONGO_DB,
+    API_PORT
 } = process.env;
 
 const options = {
@@ -23,13 +24,11 @@ const options = {
 
 const url = `mongodb://${MONGO_HOSTNAME}:${MONGO_PORT}/${MONGO_DB}?authSource=admin`;
 
-const port = 3005;
-
 connect();
 
 function listen() {
-    app.listen(port);
-    console.log('Express app started on port ' + port);
+    app.listen(API_PORT);
+    console.log('Express app started on port ' + API_PORT);
 }
 
 function connect() {

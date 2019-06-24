@@ -7,6 +7,14 @@ module.exports = function (application) {
             }).catch(err=>{
                 throw err;
             });
+        },
+        async randomizeElement(elementId, tableId) {
+            const RandomizationService = application.app.services.RandomizationService;
+            return await RandomizationService.randomizeElement(elementId, tableId).then(result=>{
+                return result;
+            }).catch(err=>{
+                throw err;
+            });
         }
     };
 };
