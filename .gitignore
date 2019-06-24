@@ -2,5 +2,6 @@
 .idea/*.xml
 .vscode/
 nodejs/api/node_modules
-mongodb/persistence
+mongodb/persistence/
+nodejs/persistence/
 *.swp

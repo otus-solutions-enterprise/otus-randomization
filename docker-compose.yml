@@ -20,7 +20,7 @@ services:
       - otus-randomization-net
   otus-randomization-api:
     build:
-      context: nodejs/api
+      context: nodejs
       dockerfile: Dockerfile
     container_name: otus-randomization-api
     restart: always
@@ -29,11 +29,9 @@ services:
     links:
       - otus-randomization-db
     ports:
-      - 8080:3005
+      - 8080:8080
     env_file:
       - ./nodejs/.env
-    volumes:
-      - ./nodejs/persistence:/src
     networks:
       - otus-randomization-net
   otus-randomization:

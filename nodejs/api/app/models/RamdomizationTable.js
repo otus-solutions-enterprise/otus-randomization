@@ -1,6 +1,17 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+const group = new Schema({
+    name: {
+        type:String,
+        required: true
+    },
+    size: {
+        type:Number,
+        required:true
+    }
+});
+
 const randomizationSchema = new Schema({
     objectType: {
         type: String,
@@ -9,7 +20,16 @@ const randomizationSchema = new Schema({
     name: {
         type: String,
         required: true
-    }
+    },
+    participants: {
+        type: Number,
+        required: true
+    },
+    blocSize: {
+        type:Number,
+        required:true
+    },
+    groups:[group]
 });
 
 
