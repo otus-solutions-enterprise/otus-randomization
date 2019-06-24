@@ -2,13 +2,13 @@ db = db.getSiblingDB('admin');
 
 db.createUser({
     user: "admin",
-    pwd: "secret",
+    pwd: "XRYs9yjU",
     roles: [{
         role: "root",
         db: "admin"
     }]
 });
-db.auth("admin", "secret");
+db.auth("admin", "XRYs9yjU");
 
 db = db.getSiblingDB('otus-randomization');
 db.createUser({
@@ -21,4 +21,3 @@ db.createUser({
 });
 
 db.createCollection("table-randomization");
-

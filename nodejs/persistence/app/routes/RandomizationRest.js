@@ -4,7 +4,7 @@ var jsonParser = bodyParser.json();
 module.exports = function(application) {
     application.post('/api/create-table',jsonParser, function(req, res) {
         res.header('Content-Type', 'application/json');
-        let participants = req.pbody.participants;
+        let participants = req.body.participants;
         let blocSize = req.body.blocSize;
         let groups = req.body.groups;
         let projectName = req.body.projectName;

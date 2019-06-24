@@ -1,40 +1,53 @@
 version: '3'
 networks:
-  otus-randomization-network:
+  otus-randomization-net:
 services:
-  otus-randomization-database:
+  otus-randomization-db:
     build:
       context: mongodb
       dockerfile: Dockerfile
-    container_name: otus-randomization-database
+    container_name: otus-randomization-db
+    hostname: otus-randomization-db
     restart: always
-    volumes:
-      - ./mongodb/persistence/mongoData/:/data/db/
     ports:
       - 27017:27017
+    volumes:
+      - ./mongodb/persistence/mongoData:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=XRYs9yjU
     networks:
-      - otus-randomization-network
-  otus-randomization:
+      - otus-randomization-net
+  otus-randomization-api:
     build:
       context: nodejs/api
       dockerfile: Dockerfile
-    container_name: otus-randomization
+    container_name: otus-randomization-api
     restart: always
     depends_on:
-      - otus-randomization-database
+      - otus-randomization-db
     links:
-      - otus-randomization-database
+      - otus-randomization-db
     ports:
-      - 80:3005
-    env_file: .env
-    environment:
-      - MONGO_USERNAME=$MONGO_USERNAME
-      - MONGO_PASSWORD=$MONGO_PASSWORD
-      - MONGO_HOSTNAME=$MONGO_HOSTNAME
-      - MONGO_PORT=$MONGO_PORT
-      - MONGO_DB=$MONGO_DB
+      - 8080:3005
+    env_file:
+      - ./nodejs/.env
+    volumes:
+      - ./nodejs/persistence:/src
     networks:
-      - otus-randomization-network
-
-
-
+      - otus-randomization-net
+  otus-randomization:
+    container_name: otus-randomization
+    build:
+      context: nginx
+      dockerfile: Dockerfile
+    restart: always
+    depends_on:
+      - otus-randomization-api
+    links:
+      - otus-randomization-api
+    ports:
+      - 80:80
+      - 443:443
+    networks:
+      - otus-randomization-net
