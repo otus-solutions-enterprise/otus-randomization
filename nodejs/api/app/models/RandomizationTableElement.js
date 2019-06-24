@@ -44,5 +44,19 @@ randomizationSchema.statics.findNotRandomized =async function(tableId) {
         })
 };
 
+randomizationSchema.statics.getExistsGroup =async function(tableId, elementId) {
+    let promisse = this.findOne({"tableId" : tableId,"elementOid" : elementId})
+        .limit(1)
+        .exec();
+
+    return await promisse
+        .then(result => {
+            return result;
+        })
+        .catch(err => {
+            throw err;
+        })
+};
+
 mongoose.model('randomization-table-element', randomizationSchema, 'randomization-table');
 

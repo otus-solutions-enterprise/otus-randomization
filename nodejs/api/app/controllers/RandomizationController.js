@@ -15,6 +15,14 @@ module.exports = function (application) {
             }).catch(err=>{
                 throw err;
             });
+        },
+        async getGroupParticipant(elementId, tableId) {
+            const RandomizationService = application.app.services.RandomizationService;
+            return await RandomizationService.getGroupParticipant(elementId, tableId).then(tableID=>{
+                return tableID;
+            }).catch(err=>{
+                throw err;
+            });
         }
     };
 };

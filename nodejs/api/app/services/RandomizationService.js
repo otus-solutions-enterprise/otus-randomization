@@ -85,11 +85,30 @@ module.exports = function (application){
             })
         },
         async randomizeElement(elementId, tableId){
-            return await RandomizationTableElementModel.findNotRandomized(tableId).then(result => {
+            return await this.getGroupParticipant(elementId, tableId).then( response => {
+                if(!response){
+                    return RandomizationTableElementModel.findNotRandomized(tableId, elementId).then(result => {
+                        if(result){
+                            result.set("elementOid",elementId);
+                            result.save();
+                            return {Identification:result.elementOid,Group:result.group}
+                        }
+                        throw Errors.notFound({message:"Table not found"})
+                    }).catch(err => {
+                        throw Errors.internalServerError({message:"Please contact support"})
+                    })
+                } else {
+                    return response;
+                }
+            });
+
+        },
+        async getGroupParticipant(elementId, tableId){
+            return await RandomizationTableElementModel.getExistsGroup(tableId, elementId).then(result => {
                 if(result){
-                    result.set("elementOid",elementId);
-                    result.save();
                     return {Identification:result.elementOid,Group:result.group}
+                } else {
+                    return result;
                 }
                 throw Errors.notFound({message:"Table not found"})
             }).catch(err => {
