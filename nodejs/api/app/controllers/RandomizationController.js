@@ -18,8 +18,8 @@ module.exports = function (application) {
         },
         async getGroupParticipant(elementId, tableId) {
             const RandomizationService = application.app.services.RandomizationService;
-            return await RandomizationService.getGroupParticipant(elementId, tableId).then(tableID=>{
-                return tableID;
+            return await RandomizationService.getGroupParticipant(elementId, tableId).then(result=>{
+                return result;
             }).catch(err=>{
                 throw err;
             });

@@ -1,9 +1,9 @@
-const mongoose =require('mongoose');
+const mongoose = require('mongoose');
 const RandomizationTableModel = mongoose.model('randomization-table');
 const RandomizationTableElementModel = mongoose.model('randomization-table-element');
 
 module.exports = function (application){
-    const Errors = application.app.services.Errors;
+    const Response = application.app.utils.Response;
     const Math = application.app.services.Math;
     return {
         validateTableParameters(participants, blocSize, groups){
@@ -23,7 +23,7 @@ module.exports = function (application){
             }
 
             if(msg){
-                throw Errors.notAcceptable({message:msg})
+                throw Response.notAcceptable({message:msg})
             }
         },
         async createTable(projectName, participants, blocSize, randomizationTableGroups){
@@ -33,7 +33,7 @@ module.exports = function (application){
                 let tableId = saveResult._doc._id;
                 return this.createTableElements(tableId,participants, blocSize, randomizationTableGroups);
             }).catch((err)=>{
-                throw Errors.internalServerError({message:"Please contact support"})
+                throw Response.internalServerError({message:"Please contact support"})
             })
         },
         async createTableElements(tableId, participants, blocSize, randomizationTableGroups){
@@ -79,13 +79,13 @@ module.exports = function (application){
             });
 
             return await RandomizationTableElementModel.createTableElements(randomDocs).then(()=>{
-                return tableId.toString();
+                return Response.success({tableId: tableId.toString()});
             }).catch(()=>{
-                throw Errors.internalServerError({message:"Please contact support"})
+                throw Response.internalServerError({message:"Please contact support"})
             })
         },
         async randomizeElement(elementId, tableId){
-            return await this.getGroupParticipant(elementId, tableId).then( response => {
+            return await RandomizationTableElementModel.getExistsGroup(elementId, tableId).then( response => {
                 if(!response){
                     return RandomizationTableElementModel.findNotRandomized(tableId, elementId).then(result => {
                         if(result){
@@ -93,9 +93,9 @@ module.exports = function (application){
                             result.save();
                             return {Identification:result.elementOid,Group:result.group}
                         }
-                        throw Errors.notFound({message:"Table not found"})
+                        throw Response.notFound({message:"Table not found"})
                     }).catch(err => {
-                        throw Errors.internalServerError({message:"Please contact support"})
+                        throw Response.internalServerError({message:"Please contact support"})
                     })
                 } else {
                     return response;
@@ -106,13 +106,14 @@ module.exports = function (application){
         async getGroupParticipant(elementId, tableId){
             return await RandomizationTableElementModel.getExistsGroup(tableId, elementId).then(result => {
                 if(result){
-                    return {Identification:result.elementOid,Group:result.group}
-                } else {
-                    return result;
+                    return Response.success({Identification:result.elementOid,Group:result.group})
                 }
-                throw Errors.notFound({message:"Table not found"})
+                throw Response.notFound({message:"Group not found"})
             }).catch(err => {
-                throw Errors.internalServerError({message:"Please contact support"})
+                if (err.body){
+                    throw err
+                }
+                throw Response.internalServerError({message:"Please contact support"})
             })
         }
     };

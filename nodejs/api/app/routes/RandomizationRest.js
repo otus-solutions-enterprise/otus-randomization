@@ -15,7 +15,7 @@ module.exports = function(application) {
 
         application.app.controllers.RandomizationController.createTable(projectName, participants, blocSize, groups)
         .then(result=>{
-            res.status(200).send({tableId:result})
+            res.status(result.code).send(result.body)
         })
         .catch(err =>{
             res.status(err.code).send(err.body)
@@ -33,7 +33,7 @@ module.exports = function(application) {
 
         application.app.controllers.RandomizationController.randomizeElement(elementId, tableId)
             .then(result=>{
-                res.status(200).send(result)
+                res.status(result.code).send(result.body)
             })
             .catch(err =>{
                 res.status(err.code).send(err.body)
@@ -51,7 +51,7 @@ module.exports = function(application) {
 
         application.app.controllers.RandomizationController.getGroupParticipant(elementId, tableId)
             .then(result=>{
-                res.status(200).send({data:result})
+                res.status(result.code).send(result.body)
             })
             .catch(err =>{
                 res.status(err.code).send(err.body)
