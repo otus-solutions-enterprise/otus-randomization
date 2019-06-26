@@ -1,11 +1,12 @@
 {
-  "name": "rocketseat",
+  "name": "otus-randomization",
   "version": "1.0.0",
-  "description": "Example for node api",
-  "main": "index.js",
+  "description": "Node api for randomization",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node --max-old-space-size=1024 --optimize-for-size app.js"
+    "test": "nyc --reporter=html --reporter=text mocha app/**/*.js && npm run unit",
+    "dev": "node --max-old-space-size=1024 --optimize-for-size app.js",
+    "unit": "mocha app/**/*.js"
   },
   "keywords": [],
   "author": "",
@@ -14,6 +15,11 @@
     "consign": "0.1.6",
     "express": "4.16.4",
     "express-list-endpoints": "^4.0.1",
+    "jasmine-node": "^3.0.0",
     "mongoose": "5.3.8"
+  },
+  "devDependencies": {
+    "mocha": "^6.1.4",
+    "nyc": "^14.1.1"
   }
 }

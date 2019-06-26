@@ -4,7 +4,7 @@ const RandomizationTableElementModel = mongoose.model('randomization-table-eleme
 
 module.exports = function (application){
     const Response = application.app.utils.Response;
-    const Math = application.app.services.Math;
+    const Math = application.app.utils.Math;
     return {
         validateTableParameters(participants, blocSize, groups){
 
