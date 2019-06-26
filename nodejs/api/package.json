@@ -4,9 +4,26 @@
   "description": "Node api for randomization",
   "main": "app.js",
   "scripts": {
-    "test": "nyc --reporter=html --reporter=text mocha app/**/*.js && npm run unit",
+    "test": "nyc --reporter=html --reporter=text mocha",
     "dev": "node --max-old-space-size=1024 --optimize-for-size app.js",
-    "unit": "mocha app/**/*.js"
+    "unit": "mocha test/**/*.js"
+  },
+  "nyc": {
+    "include": [
+      "app/**/*.js",
+      "test/**/*-spec.js"
+    ],
+    "extension": [
+      ".js"
+    ],
+    "all": true,
+    "require": [],
+    "reporter": [
+      "text-summary",
+      "html"
+    ],
+    "sourceMap": true,
+    "instrument": true
   },
   "keywords": [],
   "author": "",
