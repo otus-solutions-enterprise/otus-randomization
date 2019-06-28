@@ -96,14 +96,14 @@ module.exports = function (application) {
             if (result) {
               result.set("elementOid", elementId);
               result.save();
-              return Response.success({Identification: result.elementOid, Group: result.group});
+              return Response.success({identification: result.elementOid, group: result.group});
             }
             throw Response.notFound({message: "Table not found"})
           }).catch(err => {
             throw Response.internalServerError({message: "Please contact support"})
           })
         } else {
-          return Response.success({Identification: response.elementOid, Group: response.group});
+          return Response.success({identification: response.elementOid, group: response.group});
         }
       });
 
@@ -111,7 +111,7 @@ module.exports = function (application) {
     async getGroupParticipant(elementId, tableId) {
       return await RandomizationTableElementModel.getExistsGroup(tableId, elementId).then(result => {
         if (result) {
-          return Response.success({Identification: result.elementOid, Group: result.group})
+          return Response.success({identification: result.elementOid, group: result.group})
         }
         throw Response.notFound("tableId or elementId not found")
       }).catch(err => {
