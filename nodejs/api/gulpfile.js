@@ -4,7 +4,7 @@ var browserSync = require('browser-sync').create();
 
 gulp.task('browser-sync', function() {
   browserSync.init({
-    proxy: "localhost:3005",
+    proxy: "localhost:8080",
     reloadDelay: 400,
     files: [
       "app/views/*/*.ejs",

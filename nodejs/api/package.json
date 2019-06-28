@@ -1,12 +1,31 @@
 {
-  "name": "rocketseat",
+  "name": "otus-randomization",
   "version": "1.0.0",
-  "description": "Example for node api",
-  "main": "index.js",
+  "description": "Node api for randomization",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "nyc --reporter=html --reporter=text mocha",
+    "unit": "mocha test/**/*.js",
     "dev": "node --max-old-space-size=1024 --optimize-for-size app.js",
-    "db": "docker pull mongo && docker run --name mongodb -p 27017:27017 -d mongo"
+    "gulp": "gulp",
+    "start": "npm run gulp browser-sync"
+  },
+  "nyc": {
+    "include": [
+      "app/**/*.js",
+      "test/**/*-spec.js"
+    ],
+    "extension": [
+      ".js"
+    ],
+    "all": true,
+    "require": [],
+    "reporter": [
+      "text-summary",
+      "html"
+    ],
+    "sourceMap": true,
+    "instrument": true
   },
   "keywords": [],
   "author": "",
@@ -14,9 +33,13 @@
   "dependencies": {
     "consign": "0.1.6",
     "express": "4.16.4",
+    "express-list-endpoints": "4.0.1",
     "mongoose": "5.3.8"
   },
   "devDependencies": {
-    "nodemon": "1.18.5"
+    "mocha": "6.1.4",
+    "nyc": "14.1.1",
+    "gulp": "3.9.1",
+    "browser-sync": "2.11.2"
   }
 }

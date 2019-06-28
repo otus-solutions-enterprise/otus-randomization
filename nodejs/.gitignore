@@ -1,3 +1,5 @@
 ./api/.idea/
 ./persistence/**
 ./persistence/
+./api/package-lock.json
+api/package-lock.json
