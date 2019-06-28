@@ -90,20 +90,20 @@ module.exports = function (application) {
       })
     },
     async randomizeElement(elementId, tableId) {
-      return await RandomizationTableElementModel.getExistsGroup(elementId, tableId).then(response => {
+      return await RandomizationTableElementModel.getExistsGroup(tableId, elementId).then(response => {
         if (!response) {
           return RandomizationTableElementModel.findNotRandomized(tableId, elementId).then(result => {
             if (result) {
               result.set("elementOid", elementId);
               result.save();
-              return {Identification: result.elementOid, Group: result.group}
+              return Response.success({Identification: result.elementOid, Group: result.group});
             }
             throw Response.notFound({message: "Table not found"})
           }).catch(err => {
             throw Response.internalServerError({message: "Please contact support"})
           })
         } else {
-          return response;
+          return Response.success({Identification: response.elementOid, Group: response.group});
         }
       });
 
