@@ -1,24 +1,19 @@
 module.exports = function (application) {
+    const RandomizationService = application.app.services.RandomizationService;
+    const ValidationService = application.app.utils.randomization.ValidationService;
     return{
-        async createTable(projectName, participants, blocSize, randomizationTableGroups) {
-            const RandomizationService = application.app.services.RandomizationService;
-            return await RandomizationService.createTable(projectName, participants, blocSize, randomizationTableGroups).then(tableID=>{
-                return tableID;
-            }).catch(err=>{
-                throw err;
-            });
+        createProjectRandomization(randomizationParameters) {
+          return RandomizationService[randomizationParameters.randomizationType](randomizationParameters)
         },
-        async randomizeElement(elementId, tableId) {
-            const RandomizationService = application.app.services.RandomizationService;
-            return await RandomizationService.randomizeElement(elementId, tableId).then(result=>{
+        async randomizeElement(identification, tableId) {
+            return await RandomizationService.randomizeElement(identification, tableId).then(result=>{
                 return result;
             }).catch(err=>{
                 throw err;
             });
         },
-        async getGroupParticipant(elementId, tableId) {
-            const RandomizationService = application.app.services.RandomizationService;
-            return await RandomizationService.getGroupParticipant(elementId, tableId).then(result=>{
+        async getElementGroup(identification, tableId) {
+            return await RandomizationService.getElementGroup(identification, tableId).then(result=>{
                 return result;
             }).catch(err=>{
                 throw err;

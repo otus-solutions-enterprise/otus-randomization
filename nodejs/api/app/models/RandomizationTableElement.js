@@ -11,7 +11,7 @@ const randomizationSchema = new Schema({
     type: ObjectId,
     required: true
   },
-  elementOid: {
+  identification: {
     type: String,
     required: true
   },
@@ -20,8 +20,7 @@ const randomizationSchema = new Schema({
     required: true
   },
   position: {
-    type: Number,
-    default: Date.now,
+    type: Number
   },
 });
 
@@ -29,23 +28,20 @@ randomizationSchema.statics.createTableElements = async function (randomDocs) {
   return await this.collection.insertMany(randomDocs);
 };
 
+randomizationSchema.statics.tableExists = async function (tableId) {
+  return await this.findOne({"tableId": tableId})
+    .exec();
+};
+
 randomizationSchema.statics.findNotRandomized = async function (tableId) {
-  let promisse = this.find({"tableId": tableId, "elementOid": null})
+  return await this.find({"tableId": tableId, "identification": null})
     .sort({position: 1})
     .limit(1)
     .exec();
-
-  return await promisse
-    .then(result => {
-      return result[0];
-    })
-    .catch(err => {
-      throw err;
-    })
 };
 
-randomizationSchema.statics.getExistsGroup = async function (tableId, elementId) {
-  let promisse = this.findOne({"tableId": tableId, "elementOid": elementId})
+randomizationSchema.statics.getElementGroup = async function (tableId, identification) {
+  let promisse = this.findOne({"tableId": tableId, "identification": identification})
     .limit(1)
     .exec();
 
