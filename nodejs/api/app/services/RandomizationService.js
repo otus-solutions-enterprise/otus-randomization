@@ -188,6 +188,28 @@ module.exports = function (application) {
         console.log(err);
         throw Response.internalServerError(errorMsg)
       })
+    },
+    async getProjectRandomizationList(ownerId) {
+      let validTableConfigurations = new Promise(async function (resolve, reject) {
+        try {
+          let projectRandomizationList = await ProjectRandomizationModel.find({ownerId: mongoose.Types.ObjectId(ownerId)}, {
+            "_id": 0,
+            "name": 1,
+            "randomizationType":1,
+            "tables.name": 1,
+            "tables.tableId": 1
+          });
+          if (projectRandomizationList.length > 0){
+            resolve(Response.success({projects:projectRandomizationList}));
+          } else {
+            reject(Response.notFound({msg:"owberId {"+ownerId+"} not Found"}))
+          }
+        } catch (err) {
+          console.log(err);
+          reject(Response.internalServerError())
+        }
+      });
+      return validTableConfigurations
     }
   };
 

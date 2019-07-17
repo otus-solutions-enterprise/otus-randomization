@@ -16,6 +16,16 @@ module.exports = function (application) {
     }
   });
 
+  application.get('/api/project-randomization-list', async function (req, res) {
+    res.header('Content-Type', 'application/json');
+    try {
+      let result =  await RandomizationController.getProjectRandomizationList(req.query.ownerId);
+      res.status(result.code).send(result.body)
+    } catch (err) {
+      res.status(err.code).send(err.body)
+    }
+  });
+
   application.post('/api/randomize', jsonParser, function (req, res) {
     res.header('Content-Type', 'application/json');
     let identification = req.body.identification;

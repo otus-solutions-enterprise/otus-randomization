@@ -5,6 +5,9 @@ module.exports = function (application) {
         createProjectRandomization(randomizationParameters) {
           return RandomizationService[randomizationParameters.randomizationType](randomizationParameters)
         },
+        getProjectRandomizationList(ownerId) {
+          return RandomizationService.getProjectRandomizationList(ownerId)
+        },
         async randomizeElement(identification, tableId) {
             return await RandomizationService.randomizeElement(identification, tableId).then(result=>{
                 return result;
