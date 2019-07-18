@@ -53,7 +53,7 @@ module.exports = function (application) {
             tableId: tableId,
             constructionParameters: table.constructionParameters
           });
-          createdTables.push({name: randomizationTable.name, tableId: randomizationTable.tableId});
+          createdTables.push({name: randomizationTable.name, tableId: randomizationTable.tableId.toString()});
           projectRandomization.tables.push(randomizationTable);
           promises.push(this.createTableElements(tableId, constructionParameters.participants, constructionParameters.blocSize, constructionParameters.groups));
         });
@@ -84,7 +84,7 @@ module.exports = function (application) {
 
         await projectRandomization.save();
         await this.createTableElements(tableId, randomizationParameters.constructionParameters.participants, randomizationParameters.constructionParameters.blocSize, randomizationParameters.constructionParameters.groups);
-        return Response.success({tableName: randomizationParameters.tableName, tableId: tableId});
+        return Response.success({tableName: randomizationParameters.tableName, tableId: tableId.toString()});
       } catch (err) {
         throw err;
       }
@@ -192,13 +192,7 @@ module.exports = function (application) {
     async getProjectRandomizationList(ownerId) {
       let validTableConfigurations = new Promise(async function (resolve, reject) {
         try {
-          let projectRandomizationList = await ProjectRandomizationModel.find({ownerId: mongoose.Types.ObjectId(ownerId)}, {
-            "_id": 0,
-            "name": 1,
-            "randomizationType":1,
-            "tables.name": 1,
-            "tables.tableId": 1
-          });
+          let projectRandomizationList = await ProjectRandomizationModel.fetchProjects(ownerId);
           if (projectRandomizationList.length > 0){
             resolve(Response.success({projects:projectRandomizationList}));
           } else {

@@ -12,7 +12,7 @@ const group = new Schema({
     type: Number,
     required: true
   }
-},{ _id : false });
+}, {_id: false});
 
 const constructionParameters = new Schema({
   participants: {
@@ -24,7 +24,7 @@ const constructionParameters = new Schema({
     required: true
   },
   groups: [group]
-},{ _id : false });
+}, {_id: false});
 
 const randomizationTable = new Schema({
   name: {
@@ -36,7 +36,7 @@ const randomizationTable = new Schema({
     required: true
   },
   constructionParameters: constructionParameters
-},{ _id : false });
+}, {_id: false});
 
 const projectSchema = new Schema({
   ownerId: {
@@ -60,6 +60,32 @@ const projectSchema = new Schema({
     default: []
   }
 });
+
+
+projectSchema.statics.fetchProjects = async function (ownerId) {
+  return this.collection.aggregate([
+    {
+      $match: {ownerId: mongoose.Types.ObjectId(ownerId)}
+    },
+    {
+      $unwind: "$tables"
+    },
+    {
+      $group: {
+        _id: {id: "$_id", name: "$name", randomizationType: "$randomizationType"},
+        tables: {$push: {name: "$tables.name", tableId: {$toString: "$tables.tableId"}}}
+      }
+    },
+    {
+      $project: {
+        _id: 0,
+        name: "$_id.name",
+        randomizationType: "$_id.randomizationType",
+        tables: "$tables"
+      }
+    }
+  ]).toArray();
+};
 
 mongoose.model('project-randomization', projectSchema, 'project-randomization');
 mongoose.model('randomization-table', randomizationTable);
